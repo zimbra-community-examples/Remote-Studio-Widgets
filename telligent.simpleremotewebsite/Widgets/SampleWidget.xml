@@ -1,0 +1,38 @@
+<scriptedContentFragments>
+	<scriptedContentFragment name="${resource:sample_widget}" cssClass="sample-widget" description="$(resource:sample_widget_description}" instanceIdentifier="71a243f32a2c4b5799feca862276b221" isCacheable="true" varyCacheByUser="true" showHeaderByDefault="true">
+		<contentScript>
+			<![CDATA[
+$core_v2_page.SetTitle($core_v2_language.GetResource('welcome'), false, false)
+
+#set($user = $core_v2_user.Accessing)
+
+<p>
+	#if ($user.ProfileUrl)
+		<a href="$core_v2_encoding.HtmlAttributeEncode($user.ProfileUrl)">
+			$core_v2_ui.GetResizedImageHtml($user.AvatarUrl, 80, 80, "%{border='0', alt=$user.DisplayName}")
+		</a>
+	#else
+		$core_v2_ui.GetResizedImageHtml($user.AvatarUrl, 80, 80, "%{border='0', alt=$user.DisplayName}")
+	#end
+</p>
+
+<p>$core_v2_language.FormatString($core_v2_language.GetResource('logged_in_as'), $user.DisplayName)</p>
+
+<p>$core_v2_language.FormatString('Test {0}, {1}, {2}', '1', '2', '3')</p>
+			]]>
+		</contentScript>
+		<headerScript>
+			<![CDATA[
+$core_v2_language.GetResource('sample_widget')
+			]]>
+		</headerScript>
+		<languageResources>
+			<language key="en-us">
+				<resource name="sample_widget">Sample Widget</resource>
+				<resource name="sample_widget_description">Shows information about the authenticated user in Evolution</resource>
+				<resource name="logged_in_as">You are logged in as {0}</resource>
+				<resource name="welcome">Welcome to Remote Widget Studio!</resource>
+			</language>
+		</languageResources>
+	</scriptedContentFragment>
+</scriptedContentFragments>
